@@ -10,7 +10,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: https://gitea.com/ScMi1/checkout@v1
+      uses: brokentoaster/checkout@v1
       with:
         submodules: recursive
 
