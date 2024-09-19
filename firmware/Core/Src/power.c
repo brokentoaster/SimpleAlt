@@ -12,14 +12,14 @@ static PowerMode power_mode = SNOOZE;
 static uint32_t idle_timer = IDLE_TIMEOUT;
 
 void power_set_mode(PowerMode mode) {
-  power_mode = mode;  
+  power_mode = mode;
 }
 
 void power_tick() {
   static uint8_t measurement_timer = 0;
-  
+
   switch (measurement_timer++) {
-    case 0:  
+    case 0:
       HAL_GPIO_WritePin(nSENSE_EN_GPIO_Port, nSENSE_EN_Pin, GPIO_PIN_RESET);
       break;
     case 1:
@@ -27,9 +27,11 @@ void power_tick() {
       break;
     case 3:
       HAL_GPIO_WritePin(nSENSE_EN_GPIO_Port, nSENSE_EN_Pin, GPIO_PIN_SET);
+#ifndef DISABLE_SLEEP
       if (voltage < 3000) {
         power_mode = SLEEP;
       }
+#endif
       break;
     default:
       break;
