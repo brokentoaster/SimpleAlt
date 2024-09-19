@@ -18,7 +18,7 @@ static uint32_t idle_timeout = SECONDS_TO_TICKS(1200);
 static uint32_t idle_timer = SECONDS_TO_TICKS(1200);
 
 void power_set_mode(PowerMode mode) {
-  power_mode = mode;  
+  power_mode = mode;
 }
 
 void power_set_timeout(uint32_t timeout) {
@@ -28,9 +28,9 @@ void power_set_timeout(uint32_t timeout) {
 
 void power_tick() {
   static uint16_t measurement_timer = 0;
-  
+
   switch (measurement_timer++) {
-    case 0:  
+    case 0:
       HAL_GPIO_WritePin(nSENSE_EN_GPIO_Port, nSENSE_EN_Pin, GPIO_PIN_RESET);
       break;
     case 1:
@@ -38,9 +38,11 @@ void power_tick() {
       break;
     case 3:
       HAL_GPIO_WritePin(nSENSE_EN_GPIO_Port, nSENSE_EN_Pin, GPIO_PIN_SET);
+#ifndef DISABLE_SLEEP
       if (voltage < VOLTAGE_LOW_ALARM) {
         power_mode = SLEEP; 
       }
+#endif
       break;
     case 99: // one second, reset timer. 
       measurement_timer = 0;
