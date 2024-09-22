@@ -7,6 +7,7 @@ CFLAGS = -g -Wall -fPIC
 AR = ar
 ARFLAGS = rcs
 
+INSTALL_DIR = /usr/local/lib/
 
 
 #detect OS
@@ -21,7 +22,7 @@ else
  endif
 endif
 
-.PHONY: default all clean
+.PHONY: default all clean install 
 .PRECIOUS: $(TARGET) $(OBJECTS) $(TARGET_LIB_STATIC) $(TARGET_LIB_DYNAMIC)
 
 OBJECTS = $(patsubst %.c, %.o, $(wildcard *.c))
@@ -47,3 +48,11 @@ $(TARGET_LIB_STATIC): $(OBJECTS)
 $(TARGET_LIB_DYNAMIC): $(TARGET_LIB_STATIC)
 	$(CC) $(OBJECTS) -Wall $(LIBS) -shared -o $@ 
 
+# You probably need to be sudo to run the install target
+install: $(TARGET_LIB_DYNAMIC)
+	install --owner=root --mode=644 --group=root $(TARGET_LIB_DYNAMIC) $(INSTALL_DIR)
+	ldconfig
+
+uninstall:
+	rm $(INSTALL_DIR)$(TARGET_LIB_DYNAMIC)
+	ldconfig
