@@ -46,3 +46,25 @@ firmware/build/*
 
 # SimpleAlt output files
 *.dump
+
+#some flutter junk
+app/flutter/**/build/**
+app/flutter/**/ephemeral/**
+app/flutter/simple_alt_view/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+app/flutter/simple_alt_view/android/local.properties
+app/flutter/simple_alt_view/ios/Flutter/Generated.xcconfig
+app/flutter/simple_alt_view/ios/Flutter/flutter_export_env/**
+app/flutter/simple_alt_view/ios/Runner/GeneratedPluginRegistrant.h
+app/flutter/simple_alt_view/ios/Runner/GeneratedPluginRegistrant.m
+
+# added a bunch of nicks untracked files using the git status command 
+app/c/simple_lnxx
+app/libsimplealt/libsimplealt.a
+app/libsimplealt/libsimplealt.so
+app/python/x
+app/python/x1
+firmware/cscope.*
+firmware/my-virtual-env/**
+firmware/test/test
+justfile
+
