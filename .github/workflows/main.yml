@@ -24,5 +24,8 @@ jobs:
       run: |
         sudo apt update -y
         sudo apt install -y libserialport-dev 
-        cd app/c
+        cd app/libsimplealt
+        make -j4
+        sudo make install 
+        cd ../c
         make -j4
